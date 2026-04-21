@@ -12,6 +12,17 @@ int main(int argc, char *argv[]){
         return 1;
     }
 
+    // Validar que las coordenadas sean números antes de usarlas
+    for(int i = 2; i < 6; i++) {
+        std::string arg = argv[i];
+        for(char c : arg) {
+            if(!isdigit(c)) {
+                std::cout << "Error: El argumento " << i << " no es un numero valido" << std::endl;
+                return 1;
+            }
+        }
+    }
+
     //Load map with class Map
     Map map(argv[1]);
 
