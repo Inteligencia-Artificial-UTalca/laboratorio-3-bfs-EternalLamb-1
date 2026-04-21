@@ -19,6 +19,9 @@ public:
     void print() const;                 //prints map
     void print(std::vector<std::pair<int,int>>) const; //prints map and path 
 
+    bool isValid(int x, int y) const;
+    bool isWall(int x, int y) const;
+
     friend bool operator==(const Map& lhs, const Map& rhs); //declares global operator friend 
     friend class Search;                //to access protected members. Otherwise, need accessors.
 };
