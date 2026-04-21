@@ -40,8 +40,9 @@ int main(int argc, char *argv[]){
 
     colorMap.print();
 
-    auto path = Search::BFS(map,{atoi(argv[2]),atoi(argv[3])},{atoi(argv[4]),atoi(argv[5])}); 
-    colorMap.print(path);
+    // Arreglar el auto path para que sea mas legible
+    auto path = Search::BFS(map, {x1, y1}, {x2, y2});
+    colorMap.print(map);
     
     return 0;
 }
