@@ -26,11 +26,12 @@ std::vector<std::pair<int,int>> Search::reconstruct(const std::unordered_map<std
 	auto node = start;//make copy
 
     //traverse path from goal to start
-
-    //
-	//while(true){
-        //implement
-	//}
+	while(true)
+    {
+        nodes.push_front(node);
+        if(node == start) break;
+        node = pathCache.at(node);            
+	}
 
     //revert path and return it
     std::vector<std::pair<int,int>> vec;
