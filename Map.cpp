@@ -19,15 +19,15 @@ Map::Map(std::string filename){
     // 3) Cargar dimensiones y matriz del mapa elegido
     file >> h >> w;
     _map.resize(h, std::vector<int>(w));
-
-    for (int i = 0; i < h; i++) 
-    {
-        std::string line;
-        file >> line;
-        for (int j = 0; j < w; j++) 
-        {
-            // Convertimos el caracter '0' o '1' a entero
-            _map[i][j] = line[j] - '0';
+ 
+   for (int i = 0; i < h; i++) {
+        for (int j = 0; j < w; j++) {
+            int valor; 
+            if (file >> valor) {
+                _map[i][j] = valor;
+            } else {
+                _map[i][j] = 1; // Muro 
+            }
         }
     }
     file.close();
@@ -57,32 +57,33 @@ bool Map::isWall(int x, int y) const {
     return _map[y][x] == 1;
 }
 
-void Map::print() const{
-    for(int i=0;i<h;i++){
-        for(int j=0;j<w;j++){
-            std::cout<<_map[i][j]<<" ";
-        }
-        std::cout<<std::endl;
-    }
-    std::cout<<std::endl;
-}
 void Map::print(std::vector<std::pair<int,int>> path) const{
-    auto __map=_map;
-
-    __map[path[0].first][path[0].second]=2;
-    for(int i=1;i<(int)path.size()-1;i++){
-         __map[path[i].first][path[i].second]=4;
+      if (path.empty()) {
+        std::cout << "No se encontró un camino para mostrar.\n";
+        return;
     }
-     __map[path[path.size()-1].first][path[path.size()-1].second]=3;
 
-    for(int i=0;i<h;i++){
-        for(int j=0;j<w;j++){
+    // Creamos copia para no modificar el original
+    std::vector<std::vector<int>> temp_map = _map;
 
-            std::cout<<__map[i][j]<<" ";
+    // CORRECCIÓN CLAVE: Usar [second][first] para [Y][X]
+    // Primero marcamos todo el camino con 4
+    for (size_t i = 0; i < path.size(); i++) {
+        temp_map[path[i].second][path[i].first] = 4;
+    }
+
+    // Sobrescribimos Inicio (2) y Fin (3)
+    temp_map[path[0].second][path[0].first] = 2;
+    temp_map[path.back().second][path.back().first] = 3;
+
+    // Impresión con espacios para legibilidad
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < w; j++) {
+            std::cout << temp_map[i][j] << " ";
         }
-        std::cout<<std::endl;
+        std::cout << "\n";
     }
-    std::cout<<std::endl;
+    std::cout << std::endl;
 }
 
 bool operator==(const Map& lhs, const Map& rhs){

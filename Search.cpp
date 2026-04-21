@@ -60,6 +60,8 @@ std::vector<std::pair<int,int>> Search::BFS(const Map& map, std::pair<int,int> s
     while(!OPEN.empty())
     {
         //get node
+        std::pair<int,int> pos = OPEN.front();
+        OPEN.pop();
 
         //check if node is goal
 		if(pos==goal){
@@ -76,18 +78,17 @@ std::vector<std::pair<int,int>> Search::BFS(const Map& map, std::pair<int,int> s
 			return reconstruct(pathCache,pos);
 		}
 
-		for(auto dir:dirs)
+		
+        for(auto dir : dirs)
         {
-            for(auto dir : dirs)
-            {
             std::pair<int,int> child = {pos.first + dir.first, pos.second + dir.second};
-                if(map.isValid(child.first, child.second) && !map.isWall(child.first, child.second) && !visited[child.second][child.first]){
+                if(map.isValid(child.first, child.second) && !map.isWall(child.first, child.second) && !visited[child.second][child.first])
+                {
                     visited[child.second][child.first] = true; // marcar como visitado
                     OPEN.push(child);                          // agregar el hijo a la lista abierta
                     pathCache[child] = pos;                    // register path
                 }
-            }
-        }            
+        }           
 	}
 
 	std::cout<<"NOT FOUND!!!!\n";
