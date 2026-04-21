@@ -6,19 +6,31 @@
 
 int main(int argc, char *argv[]){
 
-    //Verify that the amount of arguments is correct
-    //6 arguments: program name, map file, x1, y1, x2, y2
+    if (argc !=6)
+    {
+        std::cout << "Error, la cantidad de argumentos es invalida" << std::endl;
+        return 1;
+    }
 
     //Load map with class Map
     Map map(argv[1]);
+
+    int x1 = std::atoi(argv[2]);
+    int y1 = std::atoi(argv[3]);
+    int x2 = std::atoi(argv[4]);
+    int y2 = std::atoi(argv[5]);
+
+    if (!map.isValid(x1, y1) || !map.isValid(x2, y2)) {
+        std::cout << "Error: Coordenadas fuera de los limites del mapa" << std::endl;
+        return 1;
+    }
+
     ColorMap colorMap(map);
+
     colorMap.print();
 
     auto path = Search::BFS(map,{atoi(argv[2]),atoi(argv[3])},{atoi(argv[4]),atoi(argv[5])}); 
     colorMap.print(path);
-    
-    //Calculate path distance
-    //Print path distance
     
     return 0;
 }
