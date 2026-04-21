@@ -48,7 +48,15 @@ Map& Map::operator=(const Map& rhs){
     _map=rhs._map;
     return *this;
 }
-   
+
+bool Map::isValid(int x, int y) const {
+    return (x >= 0 && x < w && y >= 0 && y < h);
+}
+
+bool Map::isWall(int x, int y) const {
+    return _map[y][x] == 1;
+}
+
 void Map::print() const{
     for(int i=0;i<h;i++){
         for(int j=0;j<w;j++){
