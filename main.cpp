@@ -42,7 +42,11 @@ int main(int argc, char *argv[]){
 
     // Arreglar el auto path para que sea mas legible
     auto path = Search::BFS(map, {x1, y1}, {x2, y2});
-    colorMap.print(map);
+    colorMap.print(path);
+    
+    if (!path.empty()) {
+        std::cout << "Dist: " << path.size() - 1 << std::endl;
+    }
     
     return 0;
 }

@@ -8,10 +8,29 @@ Map::Map():h(0),w(0){
 
 Map::Map(std::string filename){
     
-    //Load the file
-    //Resize map
-    //Save file information in map
-    //Close file
+    std::ifstream file(filename);
+    if (!file.is_open()) 
+    {
+        std::cerr << "Error: No se pudo abrir el archivo " << filename << std::endl;
+        h = 0; w = 0;
+        return;
+    }
+
+    // 3) Cargar dimensiones y matriz del mapa elegido
+    file >> h >> w;
+    _map.resize(h, std::vector<int>(w));
+
+    for (int i = 0; i < h; i++) 
+    {
+        std::string line;
+        file >> line;
+        for (int j = 0; j < w; j++) 
+        {
+            // Convertimos el caracter '0' o '1' a entero
+            _map[i][j] = line[j] - '0';
+        }
+    }
+    file.close();
 }   
 
 Map::Map(const Map& rhs):h(rhs.h),w(rhs.w),_map(rhs._map){
