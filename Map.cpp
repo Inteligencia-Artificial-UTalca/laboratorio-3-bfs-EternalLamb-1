@@ -63,20 +63,15 @@ void Map::print(std::vector<std::pair<int,int>> path) const{
         return;
     }
 
-    // Creamos copia para no modificar el original
     std::vector<std::vector<int>> temp_map = _map;
 
-    // CORRECCIÓN CLAVE: Usar [second][first] para [Y][X]
-    // Primero marcamos todo el camino con 4
     for (size_t i = 0; i < path.size(); i++) {
         temp_map[path[i].second][path[i].first] = 4;
     }
 
-    // Sobrescribimos Inicio (2) y Fin (3)
     temp_map[path[0].second][path[0].first] = 2;
     temp_map[path.back().second][path.back().first] = 3;
 
-    // Impresión con espacios para legibilidad
     for (int i = 0; i < h; i++) {
         for (int j = 0; j < w; j++) {
             std::cout << temp_map[i][j] << " ";
