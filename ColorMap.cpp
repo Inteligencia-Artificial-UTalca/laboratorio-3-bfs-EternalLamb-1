@@ -22,8 +22,8 @@ void ColorMap::print(std::vector<std::pair<int,int>> path) const{
      for(int i = 1; i < (int)path.size() - 1; i++){
          __map[path[i].second][path[i].first] = 4;
     }
-
-    __map[path.back().second][path.back().first] = 3;
+    
+     __map[path[path.size()-1].first][path[path.size()-1].second]=3;
 
     for(int i=0;i<h;i++){
         for(int j=0;j<w;j++){

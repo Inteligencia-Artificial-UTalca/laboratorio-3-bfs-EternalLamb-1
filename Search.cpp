@@ -46,7 +46,7 @@ std::vector<std::pair<int,int>> Search::BFS(const Map& map, std::pair<int,int> s
 	auto startTime = std::chrono::high_resolution_clock::now();
 
     //stores possible directions
-    std::pair<int,int> dirs[]{{-1,0},{0,1},{1,0},{0,-1}};
+    std::pair<int,int> dirs[]{{1,0},{-1,0},{0,1},{0,-1}};
 
     bool visited[map.h][map.w]{false};      //we'll just use a matrix og booleans to indicated if visited
     std::queue<std::pair<int,int>> OPEN;
